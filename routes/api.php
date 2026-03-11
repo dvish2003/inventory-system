@@ -2,6 +2,8 @@
 <?php
 
 use App\Http\Controllers\CupboardController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +25,17 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/cupboard/update', [CupboardController::class, 'updateCupboard']);
     Route::post('/cupboard/delete', [CupboardController::class, 'deleteCupboard']);
 
-});
+    //place route
+    Route::post('/place/save', [PlaceController::class, 'savePlace']);
+    Route::get('/place/getAll', [PlaceController::class, 'getAllPlaces']);
+    Route::post('/place/update', [PlaceController::class, 'updatePlace']);
+    Route::post('/place/delete', [PlaceController::class, 'deletePlace']);
+
+
+    //inventory Route
+     Route::post('/inventory/save', [InventoryController::class, 'saveInventoryItem']);
+    Route::get('/inventory/getAll', [InventoryController::class, 'getAllInventoryItems']);
+    Route::post('/inventory/update', [InventoryController::class, 'updateInventoryItem']);
+    Route::post('/inventory/delete', [InventoryController::class, 'deleteItem']);
+
+    });
