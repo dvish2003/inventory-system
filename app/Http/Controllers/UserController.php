@@ -87,9 +87,6 @@ class UserController extends Controller
         if ($request->has('email')) {
             $user->email = $request->email;
         }
-        if ($request->has('password')) {
-            $user->password = bcrypt($request->password);
-        }
         if ($request->has('role')) {
             $user->role = $request->role;
         }
