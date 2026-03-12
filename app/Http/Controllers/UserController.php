@@ -39,18 +39,26 @@ class UserController extends Controller
     }
 
     // login user and send token
-    public function loginUser(Request $request){
-      try {
-          $userCredentials = $request->only('email', 'password');
-        if (!$token = JWTAuth::attempt($userCredentials)) {
+ public function loginUser(Request $request){
+    try {
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = JWTAuth::attempt($credentials)) {
             return $this->error('Invalid email or password', 401);
         }
-        return $this->success(['token' => $token], 'Login successful');
 
-      } catch (Exception $e) {
+        // Get user data by email
+        $user = User::where('email', $request->email)->first();
+
+        return $this->success([
+            'token' => $token,
+            'userData' => $user
+        ], 'Login successful');
+
+    } catch (Exception $e) {
         return $this->error($e->getMessage(), 500);
-      }
     }
+}
 
     //get All User. use check jwt token in middleware
     public function getAllUsers(){
@@ -97,8 +105,7 @@ class UserController extends Controller
     // delete User
     public function deleteUser(Request $request){
      try {
-        $user = User::find($request->id);
-        if (!$user) {
+$user = User::where('email', $request->email)->first();        if (!$user) {
             return $this->error('User not found', 404);
         }
         $user->delete();
