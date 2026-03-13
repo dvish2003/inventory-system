@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\CupboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\PlaceController;
@@ -38,4 +39,10 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/inventory/update', [InventoryController::class, 'updateInventoryItem']);
     Route::post('/inventory/delete', [InventoryController::class, 'deleteItem']);
 
+
+    //borrowing Route
+    Route::post('/borrowing/save', [BorrowingController::class, 'saveBorrowing']);
+Route::get('/borrowing/getAll', [BorrowingController::class, 'getAllBorrowings']);
+Route::post('/borrowing/update', [BorrowingController::class, 'updateBorrowing']);
+Route::post('/borrowing/delete', [BorrowingController::class, 'deleteBorrowing']);
     });
